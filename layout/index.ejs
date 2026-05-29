@@ -1,0 +1,125 @@
+<%
+  /* ── 封面图随机选取辅助 ── */
+  const coverDir = theme.covers_dir || 'images/covers';
+  /* covers 列表由 main.js 在客户端随机选取，这里只传目录路径 */
+%>
+
+<div class="home-layout">
+
+  <%# ══ 左侧栏 ══ %>
+  <aside class="sidebar-left">
+
+    <%# 个人名片 %>
+    <div class="glass card-profile">
+      <img class="profile-avatar" src="<%- url_for(theme.avatar) %>" alt="avatar"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="profile-avatar-fallback" style="display:none"><%= config.author.charAt(0) %></div>
+      <div class="profile-name"><%= config.author %></div>
+      <div class="profile-bio"><%= config.description %></div>
+    </div>
+
+    <%# 分类列表 %>
+    <div class="glass card-section">
+      <div class="section-title">分类</div>
+      <% site.categories.each(function(cat){ %>
+        <a class="cat-item" href="<%- url_for(cat.path) %>">
+          <span><%= cat.name %></span>
+          <span class="count-badge"><%= cat.length %></span>
+        </a>
+      <% }) %>
+    </div>
+
+  </aside>
+
+  <%# ══ 主内容：文章卡片流 ══ %>
+  <div class="post-feed">
+    <% page.posts.each(function(post){ %>
+      <%
+        /* 封面图：frontmatter cover > 随机（由 JS 处理） */
+        const hasCover = !!post.cover;
+        const coverAttr = hasCover ? `src="${url_for(post.cover)}"` : `data-random-cover="true"`;
+
+        /* 摘要 */
+        let excerpt = post.excerpt || '';
+        if (!excerpt && post.content) {
+          excerpt = post.content.replace(/<[^>]+>/g, '').slice(0, theme.excerpt_length || 80) + '…';
+        }
+
+        /* 时间 */
+        const now = Date.now();
+        const diff = now - post.date.valueOf();
+        const days  = Math.floor(diff / 86400000);
+        const years = Math.floor(days / 365);
+        const months = Math.floor(days / 30);
+        let timeAgo;
+        if (years > 0)       timeAgo = `${years} year${years>1?'s':''} ago`;
+        else if (months > 0) timeAgo = `${months} month${months>1?'s':''} ago`;
+        else if (days > 0)   timeAgo = `${days} day${days>1?'s':''} ago`;
+        else                 timeAgo = 'today';
+
+        /* 字数 & 阅读时间 */
+        const wordCount = post.content ? post.content.replace(/<[^>]+>/g,'').length : 0;
+        const readMin   = Math.max(1, Math.round(wordCount / 200));
+      %>
+      <article class="glass post-card<%= post.sticky ? ' post-sticky' : '' %>">
+        <a class="post-card-link" href="<%- url_for(post.path) %>">
+          <div class="post-cover-wrap">
+            <img class="post-cover" <%= coverAttr %> alt="cover"
+                 data-covers-dir="<%- url_for('/' + coverDir) %>">
+          </div>
+          <div class="post-card-body">
+            <div class="post-card-meta">
+              Posted <%= timeAgo %> &nbsp;·&nbsp; <%= readMin %> minute<%= readMin>1?'s':'' %> read
+              <% if (wordCount > 0) { %> (About <%= wordCount %> words)<% } %>
+              <% if (post.sticky) { %><span class="sticky-badge">置顶</span><% } %>
+            </div>
+            <h2 class="post-card-title"><%= post.title %></h2>
+            <p class="post-card-excerpt"><%= excerpt %></p>
+          </div>
+        </a>
+      </article>
+    <% }) %>
+
+    <%# 分页 %>
+    <% if (page.total > 1) { %>
+      <nav class="pagination">
+        <% if (page.prev) { %>
+          <a class="glass pag-btn" href="<%- url_for(page.prev_link) %>">← 上一页</a>
+        <% } %>
+        <span class="pag-info"><%= page.current %> / <%= page.total %></span>
+        <% if (page.next) { %>
+          <a class="glass pag-btn" href="<%- url_for(page.next_link) %>">下一页 →</a>
+        <% } %>
+      </nav>
+    <% } %>
+  </div>
+
+  <%# ══ 右侧栏 ══ %>
+  <aside class="sidebar-right">
+
+    <%# 最近更新 / 置顶 %>
+    <div class="glass card-section">
+      <div class="section-title">最近更新</div>
+      <% site.posts.sort('-date').limit(5).each(function(post){ %>
+        <a class="recent-item" href="<%- url_for(post.path) %>">
+          <span class="recent-arrow">▸</span>
+          <span class="recent-title"><%= post.title %></span>
+        </a>
+      <% }) %>
+    </div>
+
+    <%# 标签云（含文章数量） %>
+    <div class="glass card-section">
+      <div class="section-title">标签</div>
+      <div class="tags-wrap">
+        <% site.tags.each(function(tag){ %>
+          <a class="tag-pill" href="<%- url_for(tag.path) %>">
+            <%= tag.name %><span class="tag-count"><%= tag.length %></span>
+          </a>
+        <% }) %>
+      </div>
+    </div>
+
+  </aside>
+
+</div>

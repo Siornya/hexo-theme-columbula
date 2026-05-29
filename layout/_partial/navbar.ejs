@@ -1,0 +1,8 @@
+<nav class="navbar glass-nav">
+  <a class="navbar-logo" href="<%- url_for('/') %>"><%= config.title %></a>
+  <ul class="navbar-links">
+    <% for (const [label, path] of Object.entries(theme.menu)) { %>
+      <li><a href="<%- url_for(path) %>" class="<%= page.path === path.replace(/^\//,'') ? 'active' : '' %>"><%= label %></a></li>
+    <% } %>
+  </ul>
+</nav>

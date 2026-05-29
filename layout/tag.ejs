@@ -1,0 +1,13 @@
+<div class="archive-layout">
+  <div class="glass archive-card">
+    <h1 class="archive-heading">标签：<%= page.tag %></h1>
+    <p class="archive-count">共 <%= page.posts.length %> 篇文章</p>
+
+    <% page.posts.sort('-date').each(function(post){ %>
+      <a class="archive-item" href="<%- url_for(post.path) %>">
+        <span class="archive-date"><%= post.date.format('YYYY-MM-DD') %></span>
+        <span class="archive-title"><%= post.title %></span>
+      </a>
+    <% }) %>
+  </div>
+</div>

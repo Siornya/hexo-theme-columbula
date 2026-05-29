@@ -1,0 +1,43 @@
+# ── 导航栏位置 ──────────────────────────────
+# 可选: top | bottom（暂只实现 top）
+nav_position: top
+
+# ── 个人信息 ────────────────────────────────
+avatar: /images/avatar.png     # 放在 source/images/ 下
+
+# ── 导航菜单 ────────────────────────────────
+menu:
+  首页: /
+  归档: /archives
+  分类: /categories
+  标签: /tags
+  关于: /about
+
+# ── 色调 ────────────────────────────────────
+# 主题色（暖蓝）
+accent_color: "#5b8dee"
+accent_dark:  "#3a6bd4"
+
+# 页面背景渐变（支持两个颜色节点）
+bg_from: "#c8d8f8"
+bg_to:   "#e8f0fe"
+bg_angle: 135deg
+
+# ── 玻璃效果 ────────────────────────────────
+glass_blur:    16        # px，毛玻璃模糊强度
+glass_opacity: 0.58      # 0~1，卡片透明度
+glass_border:  0.8       # 0~1，白色边框透明度
+
+# ── 文章卡片 ────────────────────────────────
+# 摘要截取字数（frontmatter 无 excerpt 时自动截取）
+excerpt_length: 80
+
+# 封面图目录（相对于 source/）
+covers_dir: images/covers
+
+# ── 代码高亮 ────────────────────────────────
+# 使用 highlight.js，风格见 source/css/highlight/
+highlight_theme: github    # github | atom-one-dark | monokai
+
+# ── 页脚 ────────────────────────────────────
+footer: 

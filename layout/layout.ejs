@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= page.title ? page.title + ' | ' + config.title : config.title %></title>
+
+  <%# ── 注入主题配置为 CSS 变量 ── %>
+  <style>
+    :root {
+      --accent:         <%= theme.accent_color %>;
+      --accent-dark:    <%= theme.accent_dark %>;
+      --bg-from:        <%= theme.bg_from %>;
+      --bg-to:          <%= theme.bg_to %>;
+      --bg-angle:       <%= theme.bg_angle %>;
+      --glass-blur:     <%= theme.glass_blur %>px;
+      --glass-opacity:  <%= theme.glass_opacity %>;
+      --glass-border:   rgba(255,255,255, <%= theme.glass_border %>);
+    }
+  </style>
+
+  <link rel="stylesheet" href="<%- url_for('/css/style.css') %>">
+
+  <%# highlight.js %>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/<%= theme.highlight_theme %>.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</head>
+<body>
+
+<%# ══ 导航栏（top） ══ %>
+<% if (theme.nav_position !== 'bottom') { %>
+  <%- partial('_partial/navbar') %>
+<% } %>
+
+<%# ══ 页面主体 ══ %>
+<main id="main-content">
+  <%- body %>
+</main>
+
+<%# ══ 页脚 ══ %>
+<footer class="site-footer">
+  <p><%= theme.footer %></p>
+</footer>
+
+<script src="<%- url_for('/js/main.js') %>"></script>
+<script>hljs.highlightAll();</script>
+</body>
+</html>

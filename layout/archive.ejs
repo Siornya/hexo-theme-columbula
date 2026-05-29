@@ -1,0 +1,24 @@
+<div class="archive-layout">
+  <div class="glass archive-card">
+    <h1 class="archive-heading">归档</h1>
+    <p class="archive-count">共 <%= site.posts.length %> 篇文章</p>
+
+    <% let currentYear = null %>
+    <% site.posts.sort('-date').each(function(post){ %>
+      <%
+        const year = post.date.year();
+      %>
+      <% if (year !== currentYear) { %>
+        <% currentYear = year %>
+        <div class="archive-year"><%= year %></div>
+      <% } %>
+      <a class="archive-item" href="<%- url_for(post.path) %>">
+        <span class="archive-date"><%= post.date.format('MM-DD') %></span>
+        <span class="archive-title"><%= post.title %></span>
+        <% if (post.categories && post.categories.length) { %>
+          <span class="archive-cat"><%= post.categories.first().name %></span>
+        <% } %>
+      </a>
+    <% }) %>
+  </div>
+</div>

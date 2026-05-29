@@ -1,0 +1,71 @@
+<%
+  const wordCount = page.content ? page.content.replace(/<[^>]+>/g,'').length : 0;
+  const readMin   = Math.max(1, Math.round(wordCount / 200));
+  const dateStr   = page.date.format('YYYY-MM-DD');
+%>
+
+<div class="post-layout">
+
+  <%# ══ 左侧目录（JS 自动生成） ══ %>
+  <aside class="post-toc-wrap">
+    <div class="glass toc-card">
+      <div class="section-title">目录</div>
+      <nav id="toc" class="toc-nav"></nav>
+    </div>
+  </aside>
+
+  <%# ══ 文章正文 ══ %>
+  <article class="glass post-article" id="post-content">
+
+    <%# 封面图 %>
+    <% if (page.cover) { %>
+      <div class="post-hero-cover">
+        <img src="<%- url_for(page.cover) %>" alt="cover">
+      </div>
+    <% } %>
+
+    <div class="post-article-body">
+      <div class="post-article-meta">
+        <%= dateStr %>
+        <% if (page.categories && page.categories.length) { %>
+          &nbsp;·&nbsp;
+          <% page.categories.each(function(cat){ %>
+            <a href="<%- url_for(cat.path) %>"><%= cat.name %></a>
+          <% }) %>
+        <% } %>
+        &nbsp;·&nbsp; 阅读约 <%= readMin %> 分钟
+      </div>
+
+      <h1 class="post-article-title"><%= page.title %></h1>
+
+      <% if (page.tags && page.tags.length) { %>
+        <div class="post-tags">
+          <% page.tags.each(function(tag){ %>
+            <a class="tag-pill" href="<%- url_for(tag.path) %>"><%= tag.name %></a>
+          <% }) %>
+        </div>
+      <% } %>
+
+      <div class="post-article-content" id="article-body">
+        <%- page.content %>
+      </div>
+
+      <%# 上一篇 / 下一篇 %>
+      <div class="post-nav">
+        <% if (page.prev) { %>
+          <a class="glass post-nav-btn" href="<%- url_for(page.prev.path) %>">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title"><%= page.prev.title %></span>
+          </a>
+        <% } else { %><div></div><% } %>
+        <% if (page.next) { %>
+          <a class="glass post-nav-btn" href="<%- url_for(page.next.path) %>">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title"><%= page.next.title %></span>
+          </a>
+        <% } else { %><div></div><% } %>
+      </div>
+    </div>
+
+  </article>
+</div>
