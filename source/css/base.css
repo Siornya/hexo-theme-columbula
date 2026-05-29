@@ -1,0 +1,117 @@
+/* ═══════════════════════════════════════════════════
+   base.css — Reset、全局、导航栏、页脚、滚动条、响应式
+   变量由 layout.ejs 从 _config.yml 注入
+═══════════════════════════════════════════════════ */
+
+/* ── Reset & Base ──────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Georgia', 'Noto Serif SC', serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #1a3a7a;
+  min-height: 100vh;
+  background:
+    linear-gradient(var(--bg-angle, 135deg), var(--bg-from, #c8d8f8), var(--bg-to, #e8f0fe))
+    fixed;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* ── 玻璃基类 ───────────────────────────────────── */
+.glass {
+  background: rgba(255, 255, 255, var(--glass-opacity, 0.58));
+  backdrop-filter: blur(var(--glass-blur, 16px));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 16px));
+  border: 0.5px solid var(--glass-border, rgba(255,255,255,0.8));
+  border-radius: 14px;
+}
+
+/* ── 导航栏 ─────────────────────────────────────── */
+.glass-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.75);
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 32px;
+  height: 52px;
+}
+
+.navbar-logo {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--accent-dark, #3a6bd4);
+  letter-spacing: 0.02em;
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+}
+
+.navbar-links a {
+  font-size: 13px;
+  color: #4a6ab5;
+  opacity: 0.85;
+  transition: opacity 0.15s;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.navbar-links a:hover,
+.navbar-links a.active { opacity: 1; color: var(--accent-dark); }
+
+/* ── 页脚 ───────────────────────────────────────── */
+.site-footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 12px;
+  color: #9ab5d5;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+/* ── 滚动条美化 ─────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(91, 141, 238, 0.25);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(91, 141, 238, 0.45); }
+
+/* ── 响应式 ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .home-layout {
+    grid-template-columns: 1fr;
+    padding: 12px 16px 32px;
+  }
+  .sidebar-left,
+  .sidebar-right {
+    position: static;
+  }
+  .post-layout {
+    grid-template-columns: 1fr;
+    padding: 12px 16px 40px;
+  }
+  .post-toc-wrap {
+    position: static;
+    order: -1;
+  }
+  .toc-card {
+    max-height: 200px;
+  }
+}
