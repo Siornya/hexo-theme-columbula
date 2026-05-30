@@ -3,7 +3,6 @@
 ═══════════════════════════════════════════════════ */
 
 (function () {
-
   /* ── 1. 随机封面图 ──────────────────────────────
      对所有 data-random-cover="true" 的 img，
      从 data-covers-dir 目录扫描列表（通过约定文件名）。
@@ -12,55 +11,62 @@
      或修改下方 COVERS 数组为你的实际文件名列表。
   ─────────────────────────────────────────────── */
   const COVERS = [
-    'cover-01.jpg', 'cover-02.jpg', 'cover-03.jpg',
-    'cover-04.jpg', 'cover-05.jpg', 'cover-06.jpg',
-    'cover-07.jpg', 'cover-08.jpg', 'cover-09.jpg',
-    'cover-10.jpg',
+    "cover-01.jpg",
+    "cover-02.jpg",
+    "cover-03.jpg",
+    "cover-04.jpg",
+    "cover-05.jpg",
+    "cover-06.jpg",
+    "cover-07.jpg",
+    "cover-08.jpg",
+    "cover-09.jpg",
+    "cover-10.jpg",
   ];
 
-  document.querySelectorAll('img[data-random-cover="true"]').forEach(function (img) {
-    const dir = img.dataset.coversDir || '/images/covers';
-    const file = COVERS[Math.floor(Math.random() * COVERS.length)];
-    img.src = dir.replace(/\/$/, '') + '/' + file;
-    img.onerror = function () {
-      /* 封面图加载失败时，用渐变占位 */
-      img.style.display = 'none';
-      const wrap = img.parentElement;
-      if (wrap) {
-        wrap.style.background = randomGradient();
-      }
-    };
-  });
+  document
+    .querySelectorAll('img[data-random-cover="true"]')
+    .forEach(function (img) {
+      const dir = img.dataset.coversDir || "/images/covers";
+      const file = COVERS[Math.floor(Math.random() * COVERS.length)];
+      img.src = dir.replace(/\/$/, "") + "/" + file;
+      img.onerror = function () {
+        /* 封面图加载失败时，用渐变占位 */
+        img.style.display = "none";
+        const wrap = img.parentElement;
+        if (wrap) {
+          wrap.style.background = randomGradient();
+        }
+      };
+    });
 
   function randomGradient() {
     const gradients = [
-      'linear-gradient(135deg,#b8ccf5,#8aaae8)',
-      'linear-gradient(135deg,#c5d8f0,#9ab8e5)',
-      'linear-gradient(135deg,#d0c8f5,#a898e8)',
-      'linear-gradient(135deg,#b8dff5,#7abde8)',
-      'linear-gradient(135deg,#d5e8f5,#a0c5e8)',
+      "linear-gradient(135deg,#b8ccf5,#8aaae8)",
+      "linear-gradient(135deg,#c5d8f0,#9ab8e5)",
+      "linear-gradient(135deg,#d0c8f5,#a898e8)",
+      "linear-gradient(135deg,#b8dff5,#7abde8)",
+      "linear-gradient(135deg,#d5e8f5,#a0c5e8)",
     ];
     return gradients[Math.floor(Math.random() * gradients.length)];
   }
-
 
   /* ── 2. 目录自动生成（正文页） ──────────────────
      从 #article-body 内的 h2/h3 生成目录，
      渲染到 #toc。
   ─────────────────────────────────────────────── */
-  const articleBody = document.getElementById('article-body');
-  const tocNav      = document.getElementById('toc');
+  const articleBody = document.getElementById("article-body");
+  const tocNav = document.getElementById("toc");
 
   if (articleBody && tocNav) {
     const headings = articleBody.querySelectorAll('h2, h3');
 
     if (headings.length === 0) {
-      const wrap = document.querySelector('.post-toc-wrap');
-      if (wrap) wrap.style.display = 'none';
+      const wrap = document.querySelector(".post-toc-wrap");
+      if (wrap) wrap.style.display = "none";
     } else {
       headings.forEach(function (h, i) {
         /* 给标题加锚点 id */
-        if (!h.id) h.id = 'heading-' + i;
+        if (!h.id) h.id = "heading-" + i;
 
         const a = document.createElement('a');
         a.href        = '#' + h.id;
@@ -68,48 +74,54 @@
         a.textContent = h.textContent;
         a.dataset.target = h.id;
 
-        a.addEventListener('click', function (e) {
+        a.addEventListener("click", function (e) {
           e.preventDefault();
-          document.getElementById(h.id).scrollIntoView({ behavior: 'smooth' });
+          document.getElementById(h.id).scrollIntoView({ behavior: "smooth" });
         });
 
         tocNav.appendChild(a);
       });
 
       /* ── 3. 目录高亮跟随滚动 ─────────────────── */
-      const tocLinks = tocNav.querySelectorAll('.toc-link');
+      const tocLinks = tocNav.querySelectorAll(".toc-link");
 
-      const observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            tocLinks.forEach(function (link) {
-              link.classList.toggle('active', link.dataset.target === entry.target.id);
-            });
-          }
-        });
-      }, {
-        rootMargin: '-60px 0px -70% 0px',
-        threshold:  0,
+      const observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              tocLinks.forEach(function (link) {
+                link.classList.toggle(
+                  "active",
+                  link.dataset.target === entry.target.id,
+                );
+              });
+            }
+          });
+        },
+        {
+          rootMargin: "-60px 0px -70% 0px",
+          threshold: 0,
+        },
+      );
+
+      headings.forEach(function (h) {
+        observer.observe(h);
       });
-
-      headings.forEach(function (h) { observer.observe(h); });
     }
   }
-
 
   /* ── 4. 代码块语言标记 ──────────────────────────
      在 highlight.js 处理后，给每个 pre 加上语言角标。
   ─────────────────────────────────────────────── */
-  document.querySelectorAll('pre code').forEach(function (code) {
-    const pre  = code.parentElement;
+  document.querySelectorAll("pre code").forEach(function (code) {
+    const pre = code.parentElement;
     const lang = (code.className.match(/language-(\w+)/) || [])[1];
     if (lang) {
-      pre.style.position = 'relative';
-      const label = document.createElement('span');
-      label.className   = 'hljs-code-lang';
+      pre.style.position = "relative";
+      const label = document.createElement("span");
+      label.className = "hljs-code-lang";
       label.textContent = lang;
       pre.appendChild(label);
     }
   });
-
 })();

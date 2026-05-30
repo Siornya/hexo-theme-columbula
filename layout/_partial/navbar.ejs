@@ -1,8 +1,34 @@
-<nav class="navbar glass-nav">
-  <a class="navbar-logo" href="<%- url_for('/') %>"><%= config.title %></a>
-  <ul class="navbar-links">
-    <% for (const [label, path] of Object.entries(theme.menu)) { %>
-      <li><a href="<%- url_for(path) %>" class="<%= page.path === path.replace(/^\//,'') ? 'active' : '' %>"><%= label %></a></li>
-    <% } %>
-  </ul>
-</nav>
+<%
+  /* 判断是否是文章页，用于决定是否启用缩略模式 */
+  const isPost = page.layout === 'post';
+%>
+
+<div class="navbar-wrap" id="navbar-wrap">
+  <%# ── 展开态：logo + 菜单 ── %>
+  <nav class="navbar-expanded" id="navbar-expanded">
+    <a class="navbar-logo" href="<%- url_for('/') %>"><%= config.title %></a>
+    <ul class="navbar-links">
+      <% for (const [label, path] of Object.entries(theme.menu)) { %>
+        <li><a href="<%- url_for(path) %>"
+               class="<%= page.path === path.replace(/^\//,'') ? 'active' : '' %>">
+          <%= label %>
+        </a></li>
+      <% } %>
+    </ul>
+  </nav>
+
+  <%# ── 收缩态：文章标题 + 进度条（仅文章页） ── %>
+  <% if (isPost) { %>
+    <div class="navbar-collapsed" id="navbar-collapsed">
+      <span class="navbar-post-title" id="navbar-post-title"><%= page.title %></span>
+      <div class="navbar-progress-bar" id="navbar-progress-bar"></div>
+    </div>
+  <% } %>
+</div>
+
+<% if (isPost) { %>
+  <script>
+    window.__IS_POST__ = true;
+    window.__POST_TITLE__ = <%= JSON.stringify(page.title) %>;
+  </script>
+<% } %>
