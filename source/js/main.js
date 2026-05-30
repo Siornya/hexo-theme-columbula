@@ -58,7 +58,7 @@
   const tocNav = document.getElementById("toc");
 
   if (articleBody && tocNav) {
-    const headings = articleBody.querySelectorAll('h2, h3');
+    const headings = articleBody.querySelectorAll("h1, h2, h3, h4");
 
     if (headings.length === 0) {
       const wrap = document.querySelector(".post-toc-wrap");
@@ -68,9 +68,10 @@
         /* 给标题加锚点 id */
         if (!h.id) h.id = "heading-" + i;
 
-        const a = document.createElement('a');
-        a.href        = '#' + h.id;
-        a.className   = 'toc-link' + (h.tagName === 'H3' ? ' toc-h3' : '');
+        const a = document.createElement("a");
+        const indent = { H1: "", H2: "", H3: " toc-h3", H4: " toc-h4" };
+        a.href = "#" + h.id;
+        a.className = "toc-link" + (indent[h.tagName] || "");
         a.textContent = h.textContent;
         a.dataset.target = h.id;
 

@@ -55,6 +55,12 @@
   color: #8aaad8;
 }
 
+.toc-link.toc-h4 {
+  padding-left: 28px;
+  font-size: 11px;
+  color: #a0bad8;
+}
+
 /* ── 文章正文容器 ────────────────────────────────── */
 .post-article {
   overflow: hidden;
