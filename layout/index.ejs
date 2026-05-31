@@ -64,7 +64,7 @@
       <article class="glass post-card<%= post.sticky ? ' post-sticky' : '' %>">
         <a class="post-card-link" href="<%- url_for(post.path) %>">
           <div class="post-cover-wrap">
-            <img class="post-cover" <%= coverAttr %> alt="cover"
+            <img class="post-cover" <%- coverAttr %> alt="cover"
                  data-covers-dir="<%- url_for('/' + coverDir) %>">
           </div>
           <div class="post-card-body">
