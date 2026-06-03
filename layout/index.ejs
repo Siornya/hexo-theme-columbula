@@ -14,8 +14,8 @@
       <img class="profile-avatar" src="<%- url_for(theme.avatar) %>" alt="avatar"
            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
       <div class="profile-avatar-fallback" style="display:none"><%= config.author.charAt(0) %></div>
-      <div class="profile-name"><%= config.author %></div>
-      <div class="profile-bio"><%= config.description %></div>
+      <div class="profile-name"><%- config.author %></div>
+      <div class="profile-bio"><%- config.description %></div>
     </div>
 
     <%# 分类列表 %>
