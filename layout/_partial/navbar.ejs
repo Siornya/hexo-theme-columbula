@@ -8,10 +8,10 @@
   <nav class="navbar-expanded" id="navbar-expanded">
     <a class="navbar-logo" href="<%- url_for('/') %>"><%= config.title %></a>
     <ul class="navbar-links">
-      <% for (const [label, path] of Object.entries(theme.menu)) { %>
+      <% for (const [key, path] of Object.entries(theme.menu)) { %>
         <li><a href="<%- url_for(path) %>"
                class="<%= page.path === path.replace(/^\//,'') ? 'active' : '' %>">
-          <%= label %>
+          <%= __('nav.' + key) %>
         </a></li>
       <% } %>
     </ul>
