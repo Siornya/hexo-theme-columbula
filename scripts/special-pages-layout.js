@@ -12,11 +12,15 @@ const TYPE_TO_LAYOUT = {
 hexo.extend.filter.register('before_generate', function () {
   const Page = this.model('Page');
 
-  Page.toArray().forEach((page) => {
+  // 收集所有写入操作并返回 Promise，确保生成器在 layout 更新完成后才运行
+  const tasks = Page.toArray().map((page) => {
     const layout = TYPE_TO_LAYOUT[page.type];
     if (layout && page.layout !== layout) {
       page.layout = layout;
-      page.save();
+      return page.save();
     }
+    return null;
   });
+
+  return Promise.all(tasks);
 });

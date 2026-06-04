@@ -7,12 +7,26 @@
 <div class="post-layout">
 
   <%# ══ 左侧目录（JS 自动生成） ══ %>
-  <aside class="post-toc-wrap">
+  <aside class="post-toc-wrap" id="post-toc-wrap">
     <div class="glass toc-card">
       <div class="section-title">目录</div>
       <nav id="toc" class="toc-nav"></nav>
     </div>
   </aside>
+
+  <%# ══ 移动端目录抽屉：遮罩 + 浮动按钮 ══ %>
+  <div class="toc-backdrop" id="toc-backdrop"></div>
+  <button class="toc-fab" id="toc-fab" aria-label="目录" aria-expanded="false">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none"
+         stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <line x1="8" y1="6" x2="20" y2="6"></line>
+      <line x1="8" y1="12" x2="20" y2="12"></line>
+      <line x1="8" y1="18" x2="20" y2="18"></line>
+      <circle cx="3.5" cy="6" r="1"></circle>
+      <circle cx="3.5" cy="12" r="1"></circle>
+      <circle cx="3.5" cy="18" r="1"></circle>
+    </svg>
+  </button>
 
   <%# ══ 文章正文 ══ %>
   <article class="glass post-article" id="post-content">

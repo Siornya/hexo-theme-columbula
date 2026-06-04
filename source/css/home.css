@@ -258,3 +258,22 @@
   color: #9ab5d5;
   font-family: 'Helvetica Neue', sans-serif;
 }
+
+/* ═══════════════════════════════════════════════════
+   响应式：手机端首页改为单栏
+   注：home.css 在 base.css 之后引入，此处覆盖生效
+═══════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .home-layout {
+    grid-template-columns: 1fr;
+    padding: 12px 16px 32px;
+  }
+  .sidebar-left,
+  .sidebar-right {
+    position: static;
+  }
+  /* 正文卡片流优先展示，侧栏置后 */
+  .post-feed {
+    order: -1;
+  }
+}

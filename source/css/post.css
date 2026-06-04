@@ -224,3 +224,92 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* ── 移动端目录抽屉（默认桌面端隐藏） ──────────────── */
+.toc-fab,
+.toc-backdrop {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════════════
+   响应式：手机端布局
+   注：post.css 在 base.css 之后引入，此处覆盖生效
+═══════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* 正文占满整行，目录改为抽屉 */
+  .post-layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 12px 16px 40px;
+  }
+
+  /* 目录抽屉：默认滑出屏幕左侧 */
+  .post-toc-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 78%;
+    max-width: 300px;
+    z-index: 1001;
+    padding: 64px 12px 20px;
+    overflow-y: auto;
+    transform: translateX(-104%);
+    transition: transform 0.28s ease;
+  }
+  .post-toc-wrap.toc-open {
+    transform: translateX(0);
+  }
+  .toc-card {
+    max-height: none;
+  }
+
+  /* 遮罩 */
+  .toc-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(15, 42, 94, 0.28);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.28s ease,
+      visibility 0.28s ease;
+  }
+  .toc-backdrop.toc-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* 左下角浮动按钮 */
+  .toc-fab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 16px;
+    bottom: 20px;
+    z-index: 1002;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: var(--glass-border) solid;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    color: var(--accent);
+    box-shadow: 0 4px 14px rgba(15, 42, 94, 0.18);
+    cursor: pointer;
+    transition:
+      transform 0.15s ease,
+      background 0.15s ease;
+  }
+  .toc-fab:active {
+    transform: scale(0.92);
+  }
+  .toc-fab.toc-open {
+    background: var(--accent);
+    color: #fff;
+  }
+}

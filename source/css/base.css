@@ -181,26 +181,29 @@ img { max-width: 100%; display: block; }
 
 /* ── 响应式 ─────────────────────────────────────── */
 @media (max-width: 768px) {
-  .home-layout {
-    grid-template-columns: 1fr;
-    padding: 12px 16px 32px;
-  }
-  .sidebar-left,
-  .sidebar-right {
-    position: static;
-  }
-  .post-layout {
-    grid-template-columns: 1fr;
-    padding: 12px 16px 40px;
-  }
-  .post-toc-wrap {
-    position: static;
-    order: -1;
-  }
-  .toc-card {
-    max-height: 200px;
-  }
+  /* 首页 / 正文页的单栏布局分别在 home.css、post.css 中定义
+     （它们在 base.css 之后引入，需就近覆盖各自的栅格） */
+
+  /* 导航栏：移动端隐藏过长的站点标题，仅保留跳转链接 */
   .navbar-wrap {
     top: 10px;
+    max-width: calc(100vw - 20px);
+  }
+  .navbar-logo {
+    display: none;
+  }
+  .navbar-expanded {
+    max-width: 100%;
+    justify-content: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .navbar-expanded::-webkit-scrollbar {
+    display: none;
+  }
+  .navbar-links {
+    flex-shrink: 0;
   }
 }

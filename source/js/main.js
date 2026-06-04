@@ -60,9 +60,14 @@
   if (articleBody && tocNav) {
     const headings = articleBody.querySelectorAll("h1, h2, h3, h4");
 
+    const tocWrap = document.getElementById("post-toc-wrap");
+    const tocFab = document.getElementById("toc-fab");
+    const tocBackdrop = document.getElementById("toc-backdrop");
+
     if (headings.length === 0) {
-      const wrap = document.querySelector(".post-toc-wrap");
-      if (wrap) wrap.style.display = "none";
+      /* 无目录：隐藏目录卡片与浮动按钮 */
+      if (tocWrap) tocWrap.style.display = "none";
+      if (tocFab) tocFab.style.display = "none";
     } else {
       headings.forEach(function (h, i) {
         /* 给标题加锚点 id */
@@ -78,10 +83,33 @@
         a.addEventListener("click", function (e) {
           e.preventDefault();
           document.getElementById(h.id).scrollIntoView({ behavior: "smooth" });
+          closeToc(); /* 移动端点击目录项后关闭抽屉 */
         });
 
         tocNav.appendChild(a);
       });
+
+      /* ── 移动端目录抽屉开关 ─────────────────────── */
+      function setToc(open) {
+        if (tocWrap) tocWrap.classList.toggle("toc-open", open);
+        if (tocBackdrop) tocBackdrop.classList.toggle("toc-open", open);
+        if (tocFab) {
+          tocFab.classList.toggle("toc-open", open);
+          tocFab.setAttribute("aria-expanded", open ? "true" : "false");
+        }
+      }
+      function closeToc() {
+        setToc(false);
+      }
+
+      if (tocFab) {
+        tocFab.addEventListener("click", function () {
+          setToc(!tocWrap.classList.contains("toc-open"));
+        });
+      }
+      if (tocBackdrop) {
+        tocBackdrop.addEventListener("click", closeToc);
+      }
 
       /* ── 3. 目录高亮跟随滚动 ─────────────────── */
       const tocLinks = tocNav.querySelectorAll(".toc-link");
