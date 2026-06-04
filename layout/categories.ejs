@@ -1,0 +1,19 @@
+<div class="archive-layout">
+  <div class="glass archive-card">
+    <h1 class="archive-heading">分类</h1>
+    <p class="archive-count">共 <%= site.categories.length %> 个分类 · <%= site.posts.length %> 篇文章</p>
+
+    <div class="taxo-grid">
+      <% site.categories.sort('-length').each(function(cat){ %>
+        <a class="taxo-item" href="<%- url_for(cat.path) %>">
+          <span class="taxo-name"><%= cat.name %></span>
+          <span class="count-badge"><%= cat.length %></span>
+        </a>
+      <% }) %>
+    </div>
+
+    <% if (site.categories.length === 0) { %>
+      <p class="taxo-empty">暂无分类</p>
+    <% } %>
+  </div>
+</div>

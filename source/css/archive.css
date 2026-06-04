@@ -68,3 +68,85 @@
   flex-shrink: 0;
   font-family: 'Helvetica Neue', sans-serif;
 }
+
+/* ── 分类页：网格列表 ── */
+.taxo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.taxo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(91, 141, 238, 0.06);
+  border: 0.5px solid rgba(91, 141, 238, 0.12);
+  color: #2a4a8a;
+  font-size: 14px;
+  transition: background 0.15s, color 0.15s, transform 0.15s;
+}
+.taxo-item:hover {
+  background: rgba(91, 141, 238, 0.14);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.taxo-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.taxo-item .count-badge {
+  flex-shrink: 0;
+  font-size: 11px;
+  background: rgba(91, 141, 238, 0.16);
+  color: var(--accent);
+  border-radius: 20px;
+  padding: 1px 9px;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+/* ── 标签页：标签云 ── */
+.tagcloud-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+  margin-top: 8px;
+  line-height: 1.8;
+}
+
+.tagcloud-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(91, 141, 238, 0.08);
+  border: 0.5px solid rgba(91, 141, 238, 0.14);
+  color: #2a4a8a;
+  transition: background 0.15s, color 0.15s, transform 0.15s;
+}
+.tagcloud-item:hover {
+  background: rgba(91, 141, 238, 0.18);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.tagcloud-count {
+  font-size: 0.7em;
+  color: #9ab5d5;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.taxo-empty {
+  font-size: 14px;
+  color: #9ab5d5;
+  padding: 12px 0;
+}
