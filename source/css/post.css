@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════
-   post.css — 正文页：两栏布局、目录、正文排版、代码块、上下篇
+   post.css — 正文页：两栏布局、目录、正文排版、上下篇
 ═══════════════════════════════════════════════════ */
 
 /* ── 正文页布局 ─────────────────────────────────── */
@@ -23,6 +23,11 @@
   padding: 14px 16px;
   max-height: calc(100vh - 100px);
   overflow-y: auto;
+  -ms-overflow-style: none;
+}
+
+.toc-card::-webkit-scrollbar {
+  display: none;
 }
 
 .toc-nav {
@@ -38,11 +43,15 @@
   padding: 3px 0 3px 10px;
   border-left: 2px solid transparent;
   line-height: 1.5;
-  transition: color 0.15s, border-color 0.15s;
-  font-family: 'Helvetica Neue', sans-serif;
+  transition:
+    color 0.15s,
+    border-color 0.15s;
+  font-family: "Helvetica Neue", sans-serif;
 }
 
-.toc-link:hover { color: var(--accent); }
+.toc-link:hover {
+  color: var(--accent);
+}
 .toc-link.active {
   border-left-color: var(--accent);
   color: #1a3a7a;
@@ -86,9 +95,11 @@
   font-size: 12px;
   color: #9ab5d5;
   margin-bottom: 10px;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
 }
-.post-article-meta a:hover { color: var(--accent); }
+.post-article-meta a:hover {
+  color: var(--accent);
+}
 
 .post-article-title {
   font-size: 22px;
@@ -122,22 +133,30 @@
   scroll-margin-top: 80px;
 }
 
-.post-article-content h1 { font-size: 20px; }
+.post-article-content h1 {
+  font-size: 20px;
+}
 .post-article-content h2 {
   font-size: 17px;
   padding-bottom: 6px;
   border-bottom: 0.5px solid rgba(91, 141, 238, 0.2);
 }
-.post-article-content h3 { font-size: 15px; }
+.post-article-content h3 {
+  font-size: 15px;
+}
 
-.post-article-content p { margin-bottom: 1.1em; }
+.post-article-content p {
+  margin-bottom: 1.1em;
+}
 
 .post-article-content a {
   color: var(--accent);
   border-bottom: 0.5px solid rgba(91, 141, 238, 0.3);
   transition: border-color 0.15s;
 }
-.post-article-content a:hover { border-color: var(--accent); }
+.post-article-content a:hover {
+  border-color: var(--accent);
+}
 
 .post-article-content blockquote {
   margin: 1.2em 0;
@@ -154,111 +173,16 @@
   padding-left: 1.5em;
   margin-bottom: 1.1em;
 }
-.post-article-content li { margin-bottom: 0.3em; }
+.post-article-content li {
+  margin-bottom: 0.3em;
+}
 
 .post-article-content img {
   border-radius: 8px;
   margin: 1em 0;
 }
 
-.post-article-content table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13.5px;
-}
-.post-article-content th,
-.post-article-content td {
-  border: 0.5px solid rgba(91, 141, 238, 0.2);
-  padding: 8px 12px;
-  text-align: left;
-}
-.post-article-content th {
-  background: rgba(91, 141, 238, 0.08);
-  color: #1a3a7a;
-  font-weight: 600;
-}
-
-/* ── 代码块 ─────────────────────────────────────── */
-.post-article-content pre {
-  margin: 1.2em 0;
-  overflow: hidden;
-}
-
-.post-article-content pre code {
-  display: block;
-  padding: 14px 18px;
-  font-size: 13px;
-  line-height: 1.65;
-  overflow-x: auto;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-}
-
-.post-article-content :not(pre) > code {
-  background: rgba(91, 141, 238, 0.1);
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 13px;
-  color: #2a5ab5;
-  font-family: 'JetBrains Mono', 'Consolas', monospace;
-}
-
-/* 行号代码块：去掉通用表格边框/内边距，并修正行号栏过宽 */
-.post-article-content figure.highlight {
-  margin: 1.2em 0;
-  border-radius: 10px;
-  overflow: hidden;
-  border: 0.5px solid rgba(91, 141, 238, 0.18);
-}
-.post-article-content figure.highlight table,
-.post-article-content figure.highlight th,
-.post-article-content figure.highlight td {
-  border: none;
-  padding: 0;
-}
-.post-article-content figure.highlight pre {
-  margin: 0;
-  border: none;
-  border-radius: 0;
-}
-/* 去掉每行末尾的 <br> 在最后一行造成的多余空行 */
-.post-article-content figure.highlight pre br:last-child {
-  display: none;
-}
-/* 行号列：收缩到内容宽度 */
-.post-article-content figure.highlight .gutter {
-  width: 1%;
-  white-space: nowrap;
-  user-select: none;
-  border-right: 1px solid rgba(91, 141, 238, 0.25);
-}
-.post-article-content figure.highlight .gutter pre {
-  padding: 14px 8px 14px 14px;
-  color: #9ab5d5;
-  text-align: right;
-}
-/* 代码列：占满剩余宽度，避免行号栏被撑宽 */
-.post-article-content figure.highlight .code {
-  width: 100%;
-}
-.post-article-content figure.highlight .code pre {
-  padding: 14px 18px;
-  overflow-x: auto;
-}
-
-.hljs-code-wrapper {
-  position: relative;
-}
-.hljs-code-lang {
-  position: absolute;
-  top: 8px;
-  right: 12px;
-  font-size: 10px;
-  color: #9ab5d5;
-  font-family: 'Helvetica Neue', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  pointer-events: none;
-}
+/* 表格、代码块等正文组件样式见 components.css */
 
 /* ── 上一篇 / 下一篇 ────────────────────────────── */
 .post-nav {
@@ -277,13 +201,17 @@
   gap: 4px;
   transition: background 0.15s;
 }
-.post-nav-btn:nth-child(2) { text-align: right; }
-.post-nav-btn:hover { background: rgba(91, 141, 238, 0.06); }
+.post-nav-btn:nth-child(2) {
+  text-align: right;
+}
+.post-nav-btn:hover {
+  background: rgba(91, 141, 238, 0.06);
+}
 
 .post-nav-label {
   font-size: 11px;
   color: #9ab5d5;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
 }
 
 .post-nav-title {
