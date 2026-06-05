@@ -1,0 +1,176 @@
+/* ═══════════════════════════════════════════════════
+   about.css — 关于页
+   正文排版复用 post.css 的 .post-article-content
+═══════════════════════════════════════════════════ */
+
+.about-layout {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 40px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── 顶部名片（左右布局） ── */
+.about-hero {
+  padding: 36px 40px;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 左上一抹渐变光晕 */
+.about-hero::before {
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: -10%;
+  width: 70%;
+  height: 200%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(91, 141, 238, 0.16),
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+.about-hero-avatar {
+  flex-shrink: 0;
+  position: relative;
+}
+
+.about-avatar,
+.about-avatar-fallback {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 8px 26px rgba(58, 107, 212, 0.24);
+}
+
+.about-avatar-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.about-hero-info {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+
+.about-name {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f2a5e;
+  margin-bottom: 10px;
+}
+
+.about-bio {
+  font-size: 14px;
+  color: #4a6a9a;
+  line-height: 1.7;
+}
+
+.about-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.about-social-link {
+  font-size: 12.5px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: rgba(91, 141, 238, 0.10);
+  border: 0.5px solid rgba(91, 141, 238, 0.18);
+  color: var(--accent-dark);
+  font-family: 'Helvetica Neue', sans-serif;
+  transition: background 0.15s, transform 0.15s;
+}
+.about-social-link:hover {
+  background: rgba(91, 141, 238, 0.2);
+  transform: translateY(-2px);
+}
+
+/* ── 数据统计 ── */
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.about-stat {
+  padding: 16px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: transform 0.15s;
+}
+.about-stat:hover {
+  transform: translateY(-3px);
+}
+
+.about-stat-num {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent-dark);
+  font-family: 'Helvetica Neue', sans-serif;
+  line-height: 1.2;
+}
+
+.about-stat-label {
+  font-size: 12px;
+  color: #9ab5d5;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+/* ── 正文（每个一级标题一张卡片） ── */
+.about-content {
+  padding: 24px 32px;
+}
+
+/* 卡片内首个元素去掉顶部外边距，避免标题离卡片上沿过远 */
+.about-content .post-article-content > :first-child {
+  margin-top: 0;
+}
+
+/* ── 响应式 ── */
+@media (max-width: 768px) {
+  .about-layout {
+    padding: 16px 16px 40px;
+  }
+  .about-hero {
+    flex-direction: column;
+    text-align: center;
+    gap: 18px;
+    padding: 30px 24px;
+  }
+  .about-avatar,
+  .about-avatar-fallback {
+    width: 240px;
+    height: 240px;
+  }
+  .about-social {
+    justify-content: center;
+  }
+  .about-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .about-content {
+    padding: 22px 20px;
+  }
+}

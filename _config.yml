@@ -12,6 +12,14 @@ menu:
   categories: /categories
   tags: /tags
 
+# 特殊页面
+# 键可匹配 front-matter 的 type，或页面所在的顶层目录名（如 source/about/ → about）
+# 命中后自动套用 layout/<模板>.ejs，无需在 front-matter 写 layout/type
+special_pages:
+  about: about
+  categories: categories
+  tags: tags
+
 # 色调
 # 主题色（暖蓝）
 accent_color: "#5b8dee"

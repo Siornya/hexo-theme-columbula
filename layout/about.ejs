@@ -1,0 +1,82 @@
+<%
+  /* ── 统计数据 ── */
+  const postCount = site.posts.length;
+  const catCount  = site.categories.length;
+  const tagCount  = site.tags.length;
+
+  let wordTotal = 0;
+  site.posts.each(function (post) {
+    if (post.content) wordTotal += post.content.replace(/<[^>]+>/g, '').length;
+  });
+  /* 以「千字」为单位展示，超过 1 万显示 万 */
+  let wordLabel;
+  if (wordTotal >= 10000) wordLabel = (wordTotal / 10000).toFixed(1) + ' 万';
+  else                    wordLabel = String(wordTotal);
+
+  /* ── 社交链接：来自 front-matter 的 social 映射（可选） ── */
+  const social = page.social && typeof page.social === 'object' ? page.social : null;
+%>
+
+<div class="about-layout">
+
+  <%# ══ 顶部名片 ══ %>
+  <section class="glass about-hero">
+    <div class="about-hero-avatar">
+      <img class="about-avatar" src="<%- url_for(theme.avatar) %>" alt="avatar"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="about-avatar-fallback" style="display:none"><%= config.author.charAt(0) %></div>
+    </div>
+
+    <div class="about-hero-info">
+      <h1 class="about-name"><%- config.author %></h1>
+      <% if (config.description) { %>
+        <p class="about-bio"><%- config.description %></p>
+      <% } %>
+
+      <% if (social) { %>
+        <div class="about-social">
+          <% for (const [name, link] of Object.entries(social)) { %>
+            <a class="about-social-link" href="<%- link %>" target="_blank" rel="noopener">
+              <%= name %>
+            </a>
+          <% } %>
+        </div>
+      <% } %>
+    </div>
+  </section>
+
+  <%# ══ 数据统计 ══ %>
+  <section class="about-stats">
+    <div class="glass about-stat">
+      <span class="about-stat-num"><%= postCount %></span>
+      <span class="about-stat-label">文章</span>
+    </div>
+    <div class="glass about-stat">
+      <span class="about-stat-num"><%= catCount %></span>
+      <span class="about-stat-label">分类</span>
+    </div>
+    <div class="glass about-stat">
+      <span class="about-stat-num"><%= tagCount %></span>
+      <span class="about-stat-label">标签</span>
+    </div>
+    <div class="glass about-stat">
+      <span class="about-stat-num"><%= wordLabel %></span>
+      <span class="about-stat-label">总字数</span>
+    </div>
+  </section>
+
+  <%# ══ 正文：每个一级标题（# / <h1>）拆成一张卡片 ══ %>
+  <%
+    const content = page.content || '';
+    /* 在每个 <h1 前切分；过滤掉空白段（首个 <h1> 前若无内容会产生空段） */
+    const cards = content.trim()
+      ? content.split(/(?=<h1[\s>])/i).map((s) => s.trim()).filter(Boolean)
+      : [];
+  %>
+  <% cards.forEach(function (card) { %>
+    <section class="glass about-content">
+      <div class="post-article-content"><%- card %></div>
+    </section>
+  <% }) %>
+
+</div>

@@ -182,6 +182,13 @@
   margin: 1em 0;
 }
 
+.post-article-content hr {
+  border: none;
+  height: 0.5px;
+  background: rgba(91, 141, 238, 0.2);
+  margin: 1em 0;
+}
+
 /* 表格、代码块等正文组件样式见 components.css */
 
 /* ── 上一篇 / 下一篇 ────────────────────────────── */
