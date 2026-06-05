@@ -6,7 +6,7 @@
 .about-layout {
   max-width: 960px;
   margin: 0 auto;
-  padding: 24px 40px 60px;
+  padding: 24px 40px 0px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -151,7 +151,7 @@
 /* ── 响应式 ── */
 @media (max-width: 768px) {
   .about-layout {
-    padding: 16px 16px 40px;
+    padding: 16px 16px 0px;
   }
   .about-hero {
     flex-direction: column;

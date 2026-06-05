@@ -9,7 +9,7 @@
   gap: 16px;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 20px 40px 40px;
+  padding: 20px 40px 0px;
   align-items: start;
 }
 
@@ -266,7 +266,7 @@
 @media (max-width: 768px) {
   .home-layout {
     grid-template-columns: 1fr;
-    padding: 12px 16px 32px;
+    padding: 12px 16px 0px;
   }
   .sidebar-left,
   .sidebar-right {
