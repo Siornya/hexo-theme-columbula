@@ -1,0 +1,37 @@
+<%
+  /* ── 首页 Hero ── 风格由 theme.hero.style 决定：text | cover */
+  const hero    = theme.hero || {};
+  const hStyle  = hero.style || 'text';
+  const hTitle  = config.title;            /* 标题/副标题统一取站点 _config.yml */
+  const hSub    = config.subtitle || '';
+  const hImg    = hero.image;   /* 满版封面专用图，留空则回退渐变 */
+%>
+
+<% if (hStyle === 'cover') { %>
+  <%# ── D. 满版滚动封面 Hero ── %>
+  <section class="hero hero-cover">
+    <% if (hImg) { %>
+      <img class="hero-bg" src="<%- url_for(hImg) %>" alt=""
+           onerror="this.style.display='none'">
+    <% } %>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow"><%- hTitle %></p>
+      <h1 class="hero-subtitle"><%- hSub %></h1>
+    </div>
+    <button class="hero-scroll" type="button" aria-label="向下滚动"
+            onclick="document.querySelector('.home-layout').scrollIntoView({behavior:'smooth'})">
+      <span class="hero-scroll-chevron"></span>
+    </button>
+  </section>
+
+<% } else { %>
+  <%# ── B. 纯文字诗意 Hero（默认） ── %>
+  <section class="hero hero-text">
+    <div class="hero-inner">
+      <p class="hero-eyebrow"><%- hTitle %></p>
+      <h1 class="hero-subtitle"><%- hSub %></h1>
+      <span class="hero-rule"></span>
+    </div>
+  </section>
+<% } %>

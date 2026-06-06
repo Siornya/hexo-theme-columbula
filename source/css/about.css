@@ -70,6 +70,16 @@
   position: relative;
 }
 
+.about-site-title {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 12.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-dark, #3a6bd4);
+  opacity: 0.78;
+  margin-bottom: 8px;
+}
+
 .about-name {
   font-size: 24px;
   font-weight: 700;

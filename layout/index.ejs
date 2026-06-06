@@ -4,6 +4,11 @@
   /* covers 列表由 main.js 在客户端随机选取，这里只传目录路径 */
 %>
 
+<%# ── 顶部 Hero（可在 _config.yml 的 theme.hero 配置 / 关闭） ── %>
+<% if (theme.hero && theme.hero.enable && (!theme.hero.first_page_only || page.current === 1)) { %>
+  <%- partial('_partial/hero') %>
+<% } %>
+
 <div class="home-layout">
 
   <%# ══ 左侧栏 ══ %>

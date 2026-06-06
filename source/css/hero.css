@@ -1,0 +1,187 @@
+/* ═══════════════════════════════════════════════════
+   hero.css — 首页顶部 Hero（封面 / 横幅）
+   风格由 theme.hero.style 切换，class 加在 .hero 上
+═══════════════════════════════════════════════════ */
+
+.hero {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-text {
+  padding: 52px 40px 20px;
+}
+
+.hero-text .hero-eyebrow {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 24px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--accent-dark, #3a6bd4);
+  opacity: 0.72;
+  margin-bottom: 20px;
+  animation: hero-rise 0.9s ease both;
+}
+
+.hero-text .hero-subtitle {
+  font-family: 'Georgia', 'Noto Serif SC', serif;
+  font-weight: 500;
+  font-size: clamp(18px, 3vw, 30px);
+  line-height: 1.55;
+  letter-spacing: 0.05em;
+  color: #1a3a7a;
+  animation: hero-rise 1.1s ease 0.12s both;
+}
+
+/* 副标题下的极细装饰线 */
+.hero-text .hero-rule {
+  display: block;
+  width: 48px;
+  height: 1px;
+  margin-top: 26px;
+  background: linear-gradient(90deg,
+    transparent,
+    var(--accent, #5b8dee),
+    transparent);
+  opacity: 0.6;
+  animation: hero-rule-grow 1.2s ease 0.4s both;
+}
+
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-zoom {
+  from { transform: scale(1.08); }
+  to   { transform: scale(1); }
+}
+
+.hero-cover {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);   /* 跳出内容区，全宽出血 */
+  margin-top: -72px;               /* 抵消 body 顶部留白，顶到最上方 */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  max-width: none;
+  text-align: center;
+  /* 图未加载时的兜底底色 */
+  background: linear-gradient(135deg, var(--accent, #5b8dee), var(--accent-dark, #3a6bd4));
+}
+
+.hero-cover .hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  animation: hero-zoom 16s ease-out both;
+}
+
+.hero-cover .hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(20,38,86,0.28), rgba(20,38,86,0.50)),
+    radial-gradient(120% 110% at 50% 38%, transparent 40%, rgba(20,38,86,0.45));
+}
+
+.hero-cover .hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 24px;
+}
+
+.hero-cover .hero-eyebrow {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.90);
+  margin-bottom: 22px;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
+  animation: hero-rise 1s ease both;
+}
+
+.hero-cover .hero-subtitle {
+  font-family: 'Georgia', 'Noto Serif SC', serif;
+  font-weight: 500;
+  font-size: clamp(28px, 5vw, 52px);
+  line-height: 1.45;
+  letter-spacing: 0.06em;
+  color: #fff;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.40);
+  animation: hero-rise 1.2s ease 0.12s both;
+}
+
+/* 向下滚动提示 */
+.hero-scroll {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  animation: hero-bounce 2s ease-in-out infinite;
+}
+
+.hero-scroll-chevron {
+  width: 16px;
+  height: 16px;
+  border-right: 2px solid rgba(255, 255, 255, 0.85);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.85);
+  transform: rotate(45deg);
+  margin-top: -6px;
+}
+
+@keyframes hero-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(8px); }
+}
+
+@keyframes hero-rule-grow {
+  from { opacity: 0; width: 0; }
+  to   { opacity: 0.6; width: 48px; }
+}
+
+/* ── 响应式 ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero-text { padding: 40px 20px 12px; }
+
+  /* 满版封面在移动端用动态视口高度，避开地址栏遮挡 */
+  .hero-cover { min-height: 100svh; }
+}
+
+/* ── 尊重「减少动态效果」偏好 ─────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-text .hero-eyebrow,
+  .hero-text .hero-subtitle,
+  .hero-text .hero-rule,
+  .hero-cover .hero-eyebrow,
+  .hero-cover .hero-subtitle,
+  .hero-scroll,
+  .hero-bg {
+    animation: none;
+  }
+}
