@@ -49,15 +49,6 @@
     }, 80);
   }
 
-  function resetIdleTimer() {
-    clearTimeout(idleTimer);
-    if (isCollapsed) expand();
-    idleTimer = setTimeout(collapse, IDLE_DELAY);
-  }
-
-  /* 鼠标在页面上移动 → 重置计时器 */
-  document.addEventListener('mousemove', resetIdleTimer);
-
   /* 鼠标移入导航栏区域 → 立刻展开并暂停计时 */
   wrap.addEventListener('mouseenter', function () {
     clearTimeout(idleTimer);

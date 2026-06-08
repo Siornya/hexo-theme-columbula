@@ -114,11 +114,11 @@ img { max-width: 100%; display: block; }
   min-width: 120px;
   max-width: 360px;
   border-radius: 999px;
-  background: rgba(18, 36, 90, 0.80);
+  background: rgba(255, 255, 255, 0.62);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 0.5px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 4px 24px rgba(18, 36, 90, 0.22);
+  border: 0.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 4px 24px rgba(58, 107, 212, 0.10);
   overflow: hidden;
   white-space: nowrap;
 
@@ -140,13 +140,12 @@ img { max-width: 100%; display: block; }
 .navbar-post-title {
   font-size: 12px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.92);
+  color: var(--accent-dark, #3a6bd4);
   font-family: 'Helvetica Neue', sans-serif;
   max-width: 320px;
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1;
-  margin-top: 5px;
 }
 
 /* 阅读进度条 */
@@ -157,7 +156,7 @@ img { max-width: 100%; display: block; }
   height: 2.5px;
   width: 0%;
   border-radius: 0 999px 999px 0;
-  background: linear-gradient(90deg, var(--accent, #5b8dee), rgba(255, 255, 255, 0.6));
+  background: linear-gradient(90deg, var(--accent-dark, #3a6bd4), #9cc0f5);
   transition: width 0.1s linear;
 }
 

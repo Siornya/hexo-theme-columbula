@@ -28,6 +28,6 @@
 <% if (isPost) { %>
   <script>
     window.__IS_POST__ = true;
-    window.__POST_TITLE__ = <%= JSON.stringify(page.title) %>;
+    window.__POST_TITLE__ = <%- JSON.stringify(page.title) %>;
   </script>
 <% } %>
