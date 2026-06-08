@@ -74,7 +74,7 @@
         if (!h.id) h.id = "heading-" + i;
 
         const a = document.createElement("a");
-        const indent = { H1: "", H2: "", H3: " toc-h3", H4: " toc-h4" };
+        const indent = { H1: " toc-h1", H2: "", H3: " toc-h3", H4: " toc-h4" };
         a.href = "#" + h.id;
         a.className = "toc-link" + (indent[h.tagName] || "");
         a.textContent = h.textContent;

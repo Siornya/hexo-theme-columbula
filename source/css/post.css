@@ -58,6 +58,13 @@
   font-weight: 500;
 }
 
+.toc-link.toc-h1 {
+  padding-left: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #4a6a9a;
+}
+
 .toc-link.toc-h3 {
   padding-left: 20px;
   font-size: 11px;
