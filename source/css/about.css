@@ -14,7 +14,7 @@
 
 /* ── 顶部名片（左右布局） ── */
 .about-hero {
-  padding: 36px 40px;
+  padding: 24px 40px;
   display: flex;
   align-items: center;
   gap: 36px;
@@ -72,12 +72,20 @@
 
 .about-site-title {
   font-family: 'Helvetica Neue', sans-serif;
-  font-size: 12.5px;
+  font-size: 18px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent-dark, #3a6bd4);
   opacity: 0.78;
   margin-bottom: 8px;
+}
+
+.about-site-subtitle {
+  font-size: 15.5px;
+  color: #4a6a9a;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  opacity: 0.92;
 }
 
 .about-name {
@@ -88,7 +96,7 @@
 }
 
 .about-bio {
-  font-size: 14px;
+  font-size: 15px;
   color: #4a6a9a;
   line-height: 1.7;
 }
@@ -97,7 +105,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 18px;
+  margin-top: 12px;
 }
 
 .about-social-link {

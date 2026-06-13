@@ -16,7 +16,7 @@
 }
 
 .hero-text {
-  padding: 52px 40px 20px;
+  padding: 20px 40px 20px;
 }
 
 .hero-text .hero-eyebrow {
@@ -45,7 +45,7 @@
   display: block;
   width: 48px;
   height: 1px;
-  margin-top: 26px;
+  margin-top: 20px;
   background: linear-gradient(90deg,
     transparent,
     var(--accent, #5b8dee),

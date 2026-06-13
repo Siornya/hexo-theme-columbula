@@ -29,6 +29,9 @@
 
     <div class="about-hero-info">
       <p class="about-site-title"><%- config.title %></p>
+      <% if (config.subtitle) { %>
+        <p class="about-site-subtitle"><%- config.subtitle %></p>
+      <% } %>
       <h1 class="about-name"><%- config.author %></h1>
       <% if (config.description) { %>
         <p class="about-bio"><%- config.description %></p>
