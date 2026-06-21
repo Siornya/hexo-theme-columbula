@@ -14,10 +14,10 @@ hero:
 # 导航菜单
 menu:
   home: /
-  about: /about
-  archives: /archives
-  categories: /categories
-  tags: /tags
+  # about: /about
+  # archives: /archives
+  # categories: /categories
+  # tags: /tags
 
 # 特殊页面
 # 让对应 type 的页面自动套用 layout/<模板>.ejs
