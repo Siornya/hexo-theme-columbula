@@ -1,19 +1,56 @@
-<div class="archive-layout">
-  <div class="glass archive-card">
-    <h1 class="archive-heading">分类</h1>
-    <p class="archive-count">共 <%= site.categories.length %> 个分类 · <%= site.posts.length %> 篇文章</p>
+<div class="cat-page-layout">
 
-    <div class="taxo-grid">
-      <% site.categories.sort('-length').each(function(cat){ %>
-        <a class="taxo-item" href="<%- url_for(cat.path) %>">
-          <span class="taxo-name"><%= cat.name %></span>
-          <span class="count-badge"><%= cat.length %></span>
-        </a>
-      <% }) %>
-    </div>
-
-    <% if (site.categories.length === 0) { %>
-      <p class="taxo-empty">暂无分类</p>
-    <% } %>
+  <div class="glass cat-page-hero">
+    <h1 class="cat-page-title">分类</h1>
+    <p class="cat-page-meta"><%= site.categories.length %> 个分类 · <%= site.posts.length %> 篇文章</p>
   </div>
+
+  <div class="cat-card-grid">
+    <% const catDesc = page.desc || {} %>
+    <%
+      const catOrder  = Object.keys(catDesc);
+      const allCats   = site.categories.sort('-length').toArray();
+      const ordered   = catOrder.map(name => allCats.find(c => c.name === name)).filter(Boolean);
+      const rest      = allCats.filter(c => !catOrder.includes(c.name));
+      const sortedCats = ordered.concat(rest);
+    %>
+    <% sortedCats.forEach(function(cat){ %>
+      <%
+        const recent = cat.posts.sort('-date').toArray().slice(0, 4);
+        const desc   = catDesc[cat.name] || '';
+      %>
+      <div class="glass cat-card">
+
+        <div class="cat-card-hd">
+          <a class="cat-card-name" href="<%- url_for(cat.path) %>"><%= cat.name %></a>
+          <span class="cat-card-badge"><%= cat.length %> 篇</span>
+        </div>
+
+        <% if (desc) { %>
+          <p class="cat-card-desc"><%= desc %></p>
+        <% } %>
+
+        <ul class="cat-card-posts">
+          <% recent.forEach(function(post){ %>
+            <li class="cat-card-post">
+              <a href="<%- url_for(post.path) %>">
+                <span class="cat-post-date"><%= post.date.format('YYYY-MM-DD') %></span>
+                <span class="cat-post-title"><%= post.title %></span>
+              </a>
+            </li>
+          <% }) %>
+        </ul>
+
+        <% if (cat.length > 4) { %>
+          <a class="cat-card-more" href="<%- url_for(cat.path) %>">查看全部 <%= cat.length %> 篇 →</a>
+        <% } %>
+
+      </div>
+    <% }); %>
+  </div>
+
+  <% if (site.categories.length === 0) { %>
+    <p class="taxo-empty">暂无分类</p>
+  <% } %>
+
 </div>

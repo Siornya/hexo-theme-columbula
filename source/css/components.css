@@ -71,6 +71,7 @@
 .post-article-content figure.highlight .gutter {
   width: 1%;
   white-space: nowrap;
+  -webkit-user-select: none;
   user-select: none;
   border-right: 1px solid rgba(91, 141, 238, 0.25);
 }
@@ -88,9 +89,6 @@
   overflow-x: auto;
 }
 
-.hljs-code-wrapper {
-  position: relative;
-}
 .hljs-code-lang {
   position: absolute;
   top: 8px;
