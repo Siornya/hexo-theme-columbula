@@ -310,8 +310,8 @@
     border-radius: 50%;
     border: var(--glass-border) solid;
     background: rgba(255, 255, 255, 0.72);
-    backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur));
     color: var(--accent);
     box-shadow: 0 4px 14px rgba(15, 42, 94, 0.18);
     cursor: pointer;

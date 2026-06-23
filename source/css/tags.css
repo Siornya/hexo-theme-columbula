@@ -1,0 +1,174 @@
+/* ═══════════════════════════════════════════════════
+   把以下内容追加到 themes/columbula/source/css/archive.css 末尾
+   （或新建 tags.css 并在 style.css 里 @import）
+   —— 标签页 方案 B：双栏 侧栏标签 + 文章流
+═══════════════════════════════════════════════════ */
+
+.tagsb-layout {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 24px 40px 0;
+}
+
+.tagsb-card {
+  padding: 26px 30px;
+  display: flex;
+  gap: 28px;
+}
+
+/* ── 左侧标签栏 ── */
+.tagsb-side {
+  flex: none;
+  width: 220px;
+}
+
+.tagsb-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f2a5e;
+  margin: 0 0 2px;
+}
+
+.tagsb-meta {
+  font-size: 11px;
+  color: #9ab5d5;
+  margin: 0 0 18px;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.tagsb-pills {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.tagsb-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 13px;
+  border: 0.5px solid rgba(91, 141, 238, 0.16);
+  border-radius: 9px;
+  background: rgba(91, 141, 238, 0.08);
+  color: #2a4a8a;
+  font-family: 'Georgia', 'Noto Serif SC', serif;
+  font-size: 13.5px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.tagsb-pill:hover {
+  background: rgba(91, 141, 238, 0.16);
+  color: var(--accent-dark, #3a6bd4);
+}
+
+.tagsb-pill.active {
+  background: var(--accent-dark, #3a6bd4);
+  border-color: var(--accent-dark, #3a6bd4);
+  color: #fff;
+}
+
+.tagsb-pill-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tagsb-pill-count {
+  flex-shrink: 0;
+  font-size: 11px;
+  opacity: 0.7;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+/* ── 右侧文章流 ── */
+.tagsb-stream {
+  flex: 1;
+  min-width: 0;
+  border-left: 1px solid rgba(91, 141, 238, 0.14);
+  padding-left: 28px;
+}
+
+.tagsb-panel[hidden] { display: none; }
+
+.tagsb-panel.active {
+  animation: tagsbFade 0.3s ease both;
+}
+
+@keyframes tagsbFade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.tagsb-panel-hd {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.tagsb-panel-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a3a7a;
+}
+
+.tagsb-panel-count {
+  font-size: 12px;
+  color: #9ab5d5;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.tagsb-post {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 9px 0;
+  border-bottom: 0.5px solid rgba(91, 141, 238, 0.1);
+  color: #2a4a8a;
+  transition: color 0.15s;
+}
+.tagsb-post:last-child { border-bottom: none; }
+.tagsb-post:hover { color: var(--accent, #5b8dee); }
+
+.tagsb-post-title {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.tagsb-post-date {
+  flex-shrink: 0;
+  font-size: 12px;
+  color: #9ab5d5;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+/* ── 响应式 ── */
+@media (max-width: 768px) {
+  .tagsb-layout { padding: 16px 16px 0; }
+  .tagsb-card {
+    flex-direction: column;
+    gap: 18px;
+  }
+  .tagsb-side { width: 100%; }
+  .tagsb-pills {
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-height: none;
+    overflow: visible;
+  }
+  .tagsb-pill { width: auto; }
+  .tagsb-stream {
+    border-left: none;
+    border-top: 1px solid rgba(91, 141, 238, 0.14);
+    padding-left: 0;
+    padding-top: 18px;
+  }
+}

@@ -1,31 +1,76 @@
-<div class="archive-layout">
-  <div class="glass archive-card">
-    <h1 class="archive-heading">标签</h1>
-    <p class="archive-count">共 <%= site.tags.length %> 个标签 · <%= site.posts.length %> 篇文章</p>
+<div class="tagsb-layout">
+  <div class="glass tagsb-card">
 
     <%
-      /* 按文章数量映射字号，做出标签云效果 */
-      let counts = [];
-      site.tags.each(function(t){ counts.push(t.length); });
-      const maxC = counts.length ? Math.max.apply(null, counts) : 1;
-      const minC = counts.length ? Math.min.apply(null, counts) : 1;
-      const minF = 13, maxF = 24;
+      const tagsArr = site.tags.sort('-length').toArray();
+      const totalPosts = site.posts.length;
     %>
 
-    <div class="tagcloud-wrap">
-      <% site.tags.sort('name').each(function(tag){ %>
-        <%
-          const ratio = maxC === minC ? 1 : (tag.length - minC) / (maxC - minC);
-          const size  = (minF + ratio * (maxF - minF)).toFixed(1);
-        %>
-        <a class="tagcloud-item" href="<%- url_for(tag.path) %>" style="font-size:<%= size %>px">
-          <%= tag.name %><span class="tagcloud-count"><%= tag.length %></span>
-        </a>
-      <% }) %>
-    </div>
+    <%# ── 左侧：标签栏 ── %>
+    <aside class="tagsb-side">
+      <h1 class="tagsb-title">标签</h1>
+      <p class="tagsb-meta"><%= site.tags.length %> 个 · <%= totalPosts %> 篇</p>
 
-    <% if (site.tags.length === 0) { %>
-      <p class="taxo-empty">暂无标签</p>
-    <% } %>
+      <div class="tagsb-pills" role="tablist">
+        <% tagsArr.forEach(function(tag, i){ %>
+          <button class="tagsb-pill<%= i === 0 ? ' active' : '' %>"
+                  role="tab"
+                  data-tag="<%= i %>"
+                  aria-selected="<%= i === 0 ? 'true' : 'false' %>">
+            <span class="tagsb-pill-name"><%= tag.name %></span>
+            <span class="tagsb-pill-count"><%= tag.length %></span>
+          </button>
+        <% }) %>
+      </div>
+
+      <% if (tagsArr.length === 0) { %>
+        <p class="taxo-empty">暂无标签</p>
+      <% } %>
+    </aside>
+
+    <%# ── 右侧：文章流 ── %>
+    <section class="tagsb-stream">
+      <% tagsArr.forEach(function(tag, i){ %>
+        <div class="tagsb-panel<%= i === 0 ? ' active' : '' %>" data-tag="<%= i %>" role="tabpanel"<%= i === 0 ? '' : ' hidden' %>>
+          <div class="tagsb-panel-hd">
+            <span class="tagsb-panel-name"># <%= tag.name %></span>
+            <span class="tagsb-panel-count"><%= tag.length %> 篇文章</span>
+          </div>
+          <% tag.posts.sort('-date').each(function(post){ %>
+            <a class="tagsb-post" href="<%- url_for(post.path) %>">
+              <span class="tagsb-post-title"><%= post.title %></span>
+              <span class="tagsb-post-date"><%= post.date.format('YYYY-MM-DD') %></span>
+            </a>
+          <% }) %>
+        </div>
+      <% }) %>
+    </section>
+
   </div>
 </div>
+
+<script>
+(function () {
+  var root = document.querySelector('.tagsb-card');
+  if (!root) return;
+  var pills  = root.querySelectorAll('.tagsb-pill');
+  var panels = root.querySelectorAll('.tagsb-panel');
+
+  function select(idx) {
+    pills.forEach(function (p) {
+      var on = p.dataset.tag === idx;
+      p.classList.toggle('active', on);
+      p.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    panels.forEach(function (panel) {
+      var on = panel.dataset.tag === idx;
+      panel.classList.toggle('active', on);
+      panel.hidden = !on;
+    });
+  }
+
+  pills.forEach(function (p) {
+    p.addEventListener('click', function () { select(p.dataset.tag); });
+  });
+})();
+</script>
