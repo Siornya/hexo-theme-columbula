@@ -2,23 +2,19 @@
 
 一款为 [Hexo](https://hexo.io/) 打造的主题
 
----
+目前还在快速更新中
+如果有任何改进建议或想法欢迎提交issue或与我联系
+
+[示例网站](https://siornya.github.io)
 
 ## 特性
 
 - **导航栏** — 文章页空闲 3 秒自动收缩为「标题 + 阅读进度条」，鼠标移入立即展开。
 - **三栏首页** — 左侧个人名片 + 分类，中间文章卡片流，右侧最近更新 + 标签云。
-- **文章页自动目录** — 从正文 `h1~h4` 自动生成 TOC，滚动高亮跟随；移动端为抽屉式。
 - **随机封面** — 未指定封面的文章自动从 `covers` 目录随机取图，加载失败时回退为渐变色块。
-- **代码高亮** — 基于 [highlight.js](https://highlightjs.org/)，并自动给代码块加语言角标。
-- **数学公式** — 内置 [MathJax 3](https://www.mathjax.org/)，支持 TeX/MML。
-- **配置化的特殊页面** — `categories` / `tags` / `about` 等页面通过 `_config.yml` 映射模板，新增页面无需改 JS。
+- **特殊页面配置** — `categories` / `tags` / `about` 等页面通过 `_config.yml` 映射到特殊模板。
+- **代码块与公式块** — 基于内置 [highlight.js](https://highlightjs.org/) 与 [MathJax 3](https://www.mathjax.org/)。自动给代码块加语言角标，公式块支持 TeX/MML。
 - **多语言菜单** — 导航文案支持多语言，跟随站点 `language`。
-- **响应式** — 桌面三栏 / 两栏，移动端自动单栏。
-
----
-
-## 功能
 
 ---
 
@@ -30,30 +26,15 @@
 theme: columbula
 ```
 
-主题依赖 highlight.js 与 MathJax，均通过 CDN 加载，无需额外安装。
-
----
-
 ## 配置
-
-### 1. 站点配置
 
 主题会从站点根目录`_config.yml`读取以下站点级字段：
 
-| 字段 | 用途 |
-| --- | --- |
-| `title` | 站点标题，显示在导航栏 logo 与页面标题 |
-| `author` | 作者名，显示在首页名片与关于页 |
-| `description` | 个人简介 / 副标题（支持 HTML） |
-| `language` | `zh` 或 `en`，决定导航菜单文案 |
+`title``author``description``language`
 
-可以使用`<br>`换行
+文字部分可以使用`<br>`换行
 
-### 2. 主题配置
-
-默认的主题配置位于`themes/columbula/_config.yml`，但是在新版本Hexo中推荐使用站点根目录的`_config.columbula.yml`。你可以选择将默认配置文件复制一份到站点根目录。
-
----
+默认的主题配置位于`themes/columbula/_config.yml`，根据Hexo推荐的方案，你可以复制一份默认配置到网站根目录并命名为`_config.columbula.yml`
 
 ## 写作
 
@@ -75,13 +56,9 @@ sticky: true                         # 可选，置顶
 - 在 `source/images/covers/` 放入封面图，命名为 `cover-01.jpg`、`cover-02.jpg` …
 - 文件名列表维护在 `source/js/main.js` 顶部的 `COVERS` 数组中，可按需修改。
 
----
-
 ## 特殊页面
 
 主题已经配置了 `categories` / `tags` / `about` 这类页面的特殊模板，如果还需要添加特殊页面，可以在配置中的`special_pages`里添加。
-
-### 工作机制
 
 `special_pages` 的**键**会按如下顺序匹配，命中后自动为该页面套用 `layout/<值>.ejs`：
 
@@ -101,7 +78,7 @@ front-matter 支持可选的 `social` 映射，用于在名片处展示社交链
 title: 关于
 social:
   GitHub: https://github.com/yourname
-  Email: mailto:you@example.com
+  Email: mail@example.com
 ---
 
 # 你好
@@ -111,9 +88,21 @@ social:
 这是第二张卡片的内容。
 ```
 
+### 分类页
+
+分类页中每个类别对应一张独立卡片，卡片中展示这个类别的简介和几篇最新文章
+
+`source/categories/index.md` 中的front-matter部分中的`desc`对应分类页中的每个类别的介绍
+
+卡片顺序根据`desc`中出现的顺序，如果没有定义，则会根据文章数量排序
+
 ---
 
-## 目录结构
+## 二次修改
+
+本主题允许进行二次修改，以下是一些可能对你有帮助的内容
+
+### 目录结构
 
 ```
 columbula/
@@ -130,9 +119,7 @@ columbula/
     └── images/                 # 图片
 ```
 
----
-
-## 🎨 自定义样式
+### 🎨 自定义样式
 
 所有样式以 `source/css/style.css` 为入口，按页面拆分：`base` / `home` / `post` / `components` / `archive` / `about`。主题色、玻璃参数等通过 `layout.ejs` 注入为 CSS 变量（`--accent`、`--glass-blur` 等），可在各 CSS 文件中直接使用。
 
