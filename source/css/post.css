@@ -175,6 +175,10 @@
   font-style: italic;
 }
 
+.post-article-content blockquote > :last-child {
+  margin-bottom: 0;
+}
+
 .post-article-content ul,
 .post-article-content ol {
   padding-left: 1.5em;
