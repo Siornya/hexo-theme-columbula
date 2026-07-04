@@ -9,7 +9,7 @@
   gap: 16px;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 20px 40px 0px;
+  padding: 20px 40px 0;
   align-items: start;
 }
 
@@ -258,7 +258,7 @@
   .post-layout {
     grid-template-columns: 1fr;
     gap: 0;
-    padding: 12px 16px 0px;
+    padding: 12px 16px 0;
   }
 
   /* 目录抽屉：默认滑出屏幕左侧 */
