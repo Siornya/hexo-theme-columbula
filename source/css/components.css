@@ -29,7 +29,7 @@
 
 .post-article-content pre code {
   display: block;
-  padding: 14px 18px;
+  padding: 10px 18px;
   font-size: 13px;
   line-height: 1.65;
   overflow-x: auto;
@@ -76,7 +76,7 @@
   border-right: 1px solid rgba(91, 141, 238, 0.25);
 }
 .post-article-content figure.highlight .gutter pre {
-  padding: 14px 8px 14px 14px;
+  padding: 10px 8px 10px 14px;
   color: #9ab5d5;
   text-align: right;
 }
@@ -85,7 +85,7 @@
   width: 100%;
 }
 .post-article-content figure.highlight .code pre {
-  padding: 14px 18px;
+  padding: 10px 18px;
   overflow-x: auto;
 }
 
@@ -99,4 +99,64 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   pointer-events: none;
+}
+
+.post-article-content figure.highlight.has-code-copy,
+.post-article-content pre.has-code-copy {
+  position: relative;
+}
+
+.post-article-content pre.has-code-copy > code,
+.post-article-content figure.highlight.has-code-copy .code pre {
+  padding-right: 88px;
+}
+
+.post-article-content pre.has-code-copy .hljs-code-lang {
+  right: 72px;
+}
+
+.code-copy-button {
+  position: absolute;
+  z-index: 2;
+  top: 8px;
+  right: 8px;
+  padding: 4px 9px;
+  border: 1px solid rgba(91, 141, 238, 0.25);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.88);
+  color: #58729e;
+  font: 12px/1.3 'Helvetica Neue', sans-serif;
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease,
+    opacity 0.18s ease;
+}
+
+.post-article-content figure.highlight:hover > .code-copy-button,
+.post-article-content pre:hover > .code-copy-button,
+.code-copy-button:focus-visible,
+.code-copy-button.copied {
+  opacity: 1;
+}
+
+.code-copy-button:hover,
+.code-copy-button:focus-visible {
+  color: var(--accent-dark);
+  border-color: rgba(91, 141, 238, 0.5);
+  background: #fff;
+  outline: none;
+}
+
+.code-copy-button.copied {
+  color: #2f855a;
+  border-color: rgba(47, 133, 90, 0.35);
+}
+
+@media (hover: none) {
+  .code-copy-button {
+    opacity: 1;
+  }
 }

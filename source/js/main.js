@@ -153,4 +153,94 @@
       pre.appendChild(label);
     }
   });
+
+  /* 5. 代码块复制 */
+  function getCodeText(block) {
+    const codePre = block.matches("figure.highlight")
+      ? block.querySelector(".code pre")
+      : block.querySelector("code");
+
+    if (!codePre) return "";
+
+    /* Hexo 的行号代码块使用 <br> 分行，textContent 不会保留这些换行。 */
+    const lines = Array.prototype.filter.call(codePre.children, function (child) {
+      return child.classList.contains("line");
+    });
+
+    return lines.length
+      ? lines.map(function (line) {
+          return line.textContent;
+        }).join("\n")
+      : codePre.textContent;
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text);
+    }
+
+    return new Promise(function (resolve, reject) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+
+      try {
+        if (!document.execCommand("copy")) throw new Error("copy failed");
+        resolve();
+      } catch (error) {
+        reject(error);
+      } finally {
+        textarea.remove();
+      }
+    });
+  }
+
+  const codeBlocks = Array.prototype.slice.call(
+    document.querySelectorAll(".post-article-content figure.highlight"),
+  );
+
+  document
+    .querySelectorAll(".post-article-content pre > code")
+    .forEach(function (code) {
+      const pre = code.parentElement;
+      if (!pre.closest("figure.highlight")) codeBlocks.push(pre);
+    });
+
+  codeBlocks.forEach(function (block) {
+    if (block.querySelector(":scope > .code-copy-button")) return;
+
+    block.classList.add("has-code-copy");
+
+    const button = document.createElement("button");
+    button.className = "code-copy-button";
+    button.type = "button";
+    button.textContent = "复制";
+    button.title = "复制代码";
+    button.setAttribute("aria-label", "复制代码");
+
+    button.addEventListener("click", function () {
+      copyText(getCodeText(block)).then(
+        function () {
+          button.textContent = "已复制";
+          button.classList.add("copied");
+          window.setTimeout(function () {
+            button.textContent = "复制";
+            button.classList.remove("copied");
+          }, 1600);
+        },
+        function () {
+          button.textContent = "复制失败";
+          window.setTimeout(function () {
+            button.textContent = "复制";
+          }, 1600);
+        },
+      );
+    });
+
+    block.appendChild(button);
+  });
 })();
