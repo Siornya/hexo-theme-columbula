@@ -130,6 +130,16 @@
   line-height: 1.8;
 }
 
+.post-article-content p,
+.post-article-content li {
+  white-space: pre-line;
+}
+
+.post-article-content pre,
+.post-article-content pre code {
+  white-space: pre;
+}
+
 .post-article-content h1,
 .post-article-content h2,
 .post-article-content h3,

@@ -45,9 +45,26 @@
         const coverAttr = hasCover ? `src="${url_for(post.cover)}"` : `data-random-cover="true"`;
 
         /* 摘要 */
-        let excerpt = post.excerpt || '';
-        if (!excerpt && post.content) {
-          excerpt = post.content.replace(/<[^>]+>/g, '').slice(0, theme.excerpt_length || 80) + '…';
+        const excerptSource = post.content || post.excerpt || '';
+        let excerpt = '';
+        if (excerptSource) {
+          excerpt = excerptSource
+            .replace(/&lt;br\s*\/?&gt;/gi, '\n')
+            .replace(/&lt;\/(p|div|li|h[1-6]|blockquote|ul|ol)&gt;\s*/gi, '\n')
+            .replace(/&lt;[^&]+?&gt;/g, '')
+            .replace(/<br\s*\/?&gt;/gi, '\n')
+            .replace(/<\/(p|div|li|h[1-6]|blockquote|ul|ol)&gt;\s*/gi, '\n')
+            .replace(/<[a-z][\w:-]*(?:\s+[^&]*?)?&gt;/gi, '')
+            .replace(/<\/[a-z][\w:-]*&gt;/gi, '')
+            .replace(/<br\s*\/?>/gi, '\n')
+            .replace(/<\/(p|div|li|h[1-6]|blockquote|ul|ol)>\s*/gi, '\n')
+            .replace(/<[^>]+>/g, '')
+            .replace(/^[a-z][\w:-]*(?:\s+[^>]*)?&gt;/gim, '')
+            .replace(/\r\n?/g, '\n')
+            .replace(/[ \t]+\n/g, '\n')
+            .replace(/\n{3,}/g, '\n\n')
+            .trim();
+          excerpt = excerpt.slice(0, theme.excerpt_length || 80) + '…';
         }
 
         /* 时间 */
