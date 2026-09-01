@@ -13,6 +13,10 @@
   align-items: start;
 }
 
+.post-layout-no-toc {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 /* ── 目录 ───────────────────────────────────────── */
 .post-toc-wrap {
   position: sticky;
@@ -269,6 +273,10 @@
     grid-template-columns: 1fr;
     gap: 0;
     padding: 12px 16px 0;
+  }
+
+  .post-layout-no-toc .post-article {
+    grid-column: 1;
   }
 
   /* 目录抽屉：默认滑出屏幕左侧 */
